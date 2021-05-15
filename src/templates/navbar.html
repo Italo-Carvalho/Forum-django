@@ -1,14 +1,25 @@
+{% load static %}
 <div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-dark p-4">
-    <a class="text-white h4" href="{% url 'profiles:my-profile' %}">Perfil <i class="fas fa-arrow-right"></i></a></br>
-    <a class="text-white h4" href='/'>Configurações <i class="fas fa-arrow-right"></i></a></br>
-    <a class="text-white h4" href='{% url "logout" %}'>Sair <i class="fas fa-arrow-right"></i></a></br>
+    {% if request.path == '/profiles/my/' %}{% else %}
+    <li><a class="text-white h4" href="{% url 'profiles:my-profile' %}">Perfil <i class="fa fa-user"></i></a></li>
+    {% endif %}
+    {% if request.path != '/' %}
+    <li><a class="text-white h4" href='/'>Home <i class="fa fa-home" aria-hidden="true"></i></a></li>
+    {% endif %}
+    <li><a class="text-white h4" href='/'>Configurações <i class="fa fa-cog"></i></a></li>
+    <li><a class="text-white h4" href='{% url "logout" %}'>Sair <i class="fas fa-arrow-right"></i></a></li>
   </div>
 </div>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler profile-icon" style='padding:0px' type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <img src='{{user_p.avatar.url}}' class="navbar-toggler-icon profile-icon">
-    </button>
-  </div>
+
+<nav class="navbar navbar-expand-sm  navbar-dark bg-dark d-flex flex-row">
+
+
+      <button class="navbar-toggler d-flex justify-content-start profile-icon" style='padding:0px;margin-left:25px !important' type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <img src='{{user_p.avatar.url}}' class="navbar-toggler-icon profile-icon">
+      </button>
+      <a class="d-flex justify-content-center mx-auto" href='/'>
+      <img src='{% static "favicon/android-chrome-512x512.png" %}'  style='width: 55px;height: 55px;'>
+      </a>
+
 </nav>
