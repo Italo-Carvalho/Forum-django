@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+    {% block scripts %}
+        <script src="{% static 'posts/main.js' %}" defer></script>
+    {% endblock scripts %}
+{% block title %}Posts{% endblock title %}
+{% block content %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Criar Post</h5>
+        <button type="button" class="btn-close add-modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id='post-form' autocomplete='off'>
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger add-modal-close" data-bs-dismiss="modal">Sair</button>
+                <button type="submit" id='add-btn' class="btn btn-success">Adicionar</button>
+            </div>
+        </form>
+        <form action="upload/" id='my-dropzone' class="dropzone dz not-visible">
+        {% csrf_token %}
+          <div class="fallback">
+            <input name="file" type="file" multiple />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id='alert-box'></div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info mb-2 " data-bs-toggle="modal" data-bs-target="#addPostModal">
+  Adicione um post
+</button>
+
+
+<div id='posts-box' ></div>
+<div id='spinner-box' class='text-center'>
+    <div class="spinner-border" role="status"> </div>
+</div>
+<div class='text-center mb-3' id='end-box'>
+<button class='btn btn-primary' id='load-btn'>Mostrar mais</button>
+</div>
+
+{% endblock content %}
+
