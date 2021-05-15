@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 ]
  
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_URL = '/admin/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -44,7 +44,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'posts_proj.urls'
-
+LOGIN_URL = '/profiles/login/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -56,6 +56,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #CUSTOM CONTEXT'S
+                'profiles.processor.user',
             ],
         },
     },

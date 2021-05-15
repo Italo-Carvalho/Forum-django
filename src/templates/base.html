@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,12 +26,15 @@
 
     <!-- Custom js -->
     <script src="{% static 'functions.js' %}" defer></script>
+    <script src="{% static 'fafaicons.js' %}" defer></script>
+    
     {% block scripts %}
     {% endblock scripts %}
 
     <title>read posts | {% block title %}{% endblock title %}</title>
   </head>
   <body>
+  
     {% include "navbar.html" %}
     <div class="container mt-3 mb-3">
         {% block content %}

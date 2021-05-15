@@ -1,8 +1,16 @@
-from django.shortcuts import render
 from .models import Profile
 from .forms import ProfileForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as auth_login
+from django.shortcuts import (
+    redirect,
+    render,
+)
+from django.contrib import messages
+from posts_proj import settings
 
 @login_required
 def my_profile_view(request):
@@ -21,3 +29,18 @@ def my_profile_view(request):
     }
 
     return render(request, 'profiles/main.html', context)
+
+def login(request):
+    if request.user.is_authenticated:
+
+        return redirect("posts:main-board")
+    else:
+        if request.method == "POST":
+            user=authenticate(username=request.POST['username'],password=request.POST['password'])
+            if user is not None:
+                auth_login(request, user)
+                return redirect("/")
+            else:
+                messages.info(request, "Usuario ou Senha Inválida!")
+
+    return render(request, "registration/login.html")

@@ -6,7 +6,7 @@ from .forms import PostForm
 from profiles.models import Profile
 from .utils import action_permission
 from django.contrib.auth.decorators import login_required
-
+from posts_proj import settings
 
 @login_required
 def post_list_and_create(request):
