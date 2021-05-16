@@ -23,15 +23,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #apps
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
-    #libs
+    #3rd
     'crispy_forms',
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
  
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGOUT_REDIRECT_URL = '/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -44,7 +50,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'posts_proj.urls'
-LOGIN_URL = '/profiles/login/'
+# LOGIN_URL = '/profiles/login/'
+# LOGOUT_REDIRECT_URL = '/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -61,6 +69,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'posts_proj.wsgi.application'
@@ -113,6 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+SITE_ID = 2
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -123,3 +138,15 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

@@ -5,5 +5,5 @@ app_name = 'profiles'
 
 urlpatterns = [
     path('my/', my_profile_view, name='my-profile'),
-    path('login/', login, name='login'),
+    # path('login/', login, name='login'),
 ]
