@@ -11,7 +11,7 @@ SECRET_KEY = '+nrb2og0afv7o&%j*h9)rtbdbd13x1i%_y88r45w=t8w1i97oc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -26,10 +26,15 @@ INSTALLED_APPS = [
     #apps
     'posts.apps.PostsConfig',
     'profiles.apps.ProfilesConfig',
-    #libs
+    #3rd 
     'crispy_forms',
+    'social_django',
+    'sslserver',
 ]
- 
+
+SOCIAL_AUTH_FACEBOOK_KEY = '140075768139787' #App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '5f3de2e2058242fdb4f0babbd0d25fad' #Scret Key
+# SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -41,7 +46,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #3rd 
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'posts_proj.urls'
 LOGIN_URL = '/profiles/login/'
@@ -58,10 +67,22 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 #CUSTOM CONTEXT'S
                 'profiles.processor.user',
+                #3rd
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'posts_proj.wsgi.application'
 
